@@ -26,11 +26,11 @@ jobs:
       if: matrix.platform == 'ubuntu-latest'
       uses: snapcore/action-build@v1
       id: snapcraft
-    - name: Snapcraft first upload
+    - name: Snapcraft artifact upload
       if: matrix.platform == 'ubuntu-latest'
       uses: actions/upload-artifact@v2
       with:
-        name: snap
+        name: Linux Snapcraft
         path: ${{ steps.snapcraft.outputs.snap }}
     - name: Zip Linux x64
       if: matrix.platform == 'ubuntu-latest'
