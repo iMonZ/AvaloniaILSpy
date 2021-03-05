@@ -22,6 +22,16 @@ jobs:
       uses: cake-build/cake-action@v1
       with:
         script-path: build.cake
+    - name: Snapcraft build
+      if: matrix.platform == 'ubuntu-latest'
+      uses: snapcore/action-build@v1
+      id: snapcraft
+    - name: Snapcraft first upload
+      if: matrix.platform == 'ubuntu-latest'
+      uses: actions/upload-artifact@v2
+      with:
+        name: snap
+        path: ${{ steps.snapcraft.outputs.snap }}
     - name: Zip Linux x64
       if: matrix.platform == 'ubuntu-latest'
       run: 7z a -tzip artifacts/ILSpy-linux-x64-Release.zip artifacts/linux-x64/*
